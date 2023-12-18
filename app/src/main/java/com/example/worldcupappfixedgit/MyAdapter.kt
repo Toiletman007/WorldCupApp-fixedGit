@@ -31,6 +31,9 @@ class MyAdapter(private var activity: Activity, private var items: ArrayList<Cou
 
         if (convertView==null){
             val inflator = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            view = inflator.inflate(R.layout.list_item_layout, null)
+            viewHolder = ViewHolder(view)
+            view?.tag = viewHolder
         }
     }
     private class ViewHolder(row: View?){
