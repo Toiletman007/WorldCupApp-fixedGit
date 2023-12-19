@@ -25,7 +25,7 @@ class MyAdapter(private var activity: Activity, private var items: ArrayList<Cou
         return p0.toLong()
     }
 
-    override fun getView(p0: Int, convertView: View?, parent: ViewGroup?): View {
+    override fun getView(posistion: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View?
         val viewHolder: ViewHolder
 
@@ -34,7 +34,15 @@ class MyAdapter(private var activity: Activity, private var items: ArrayList<Cou
             view = inflator.inflate(R.layout.list_item_layout, null)
             viewHolder = ViewHolder(view)
             view?.tag = viewHolder
+        }else{
+            view = convertView
+            viewHolder = view.tag as ViewHolder
         }
+        val countries = items[posistion]
+        viewHolder.txtName?.text = countries.name
+        viewHolder.txtCupWin?.text = countries.cupWins
+        viewHolder.flagImage?.setImageResource(countries.flagImage)
+        return view as View
     }
     private class ViewHolder(row: View?){
         var txtName: TextView? = null
