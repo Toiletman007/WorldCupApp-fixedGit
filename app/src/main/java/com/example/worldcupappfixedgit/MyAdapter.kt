@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import java.util.zip.Inflater
 
-class MyAdapter(private var activity: Activity, private var items: ArrayList<CountryModel>) : BaseAdapter(){
+class MyAdapter(private var activity: Activity, private var items: ArrayList<CountryModel>) :
+    BaseAdapter() {
     override fun getCount(): Int {
         return items.size
     }
@@ -29,12 +31,13 @@ class MyAdapter(private var activity: Activity, private var items: ArrayList<Cou
         val view: View?
         val viewHolder: ViewHolder
 
-        if (convertView==null){
-            val inflator = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        if (convertView == null) {
+            val inflator =
+                activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             view = inflator.inflate(R.layout.list_item_layout, null)
             viewHolder = ViewHolder(view)
             view?.tag = viewHolder
-        }else{
+        } else {
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
@@ -42,9 +45,15 @@ class MyAdapter(private var activity: Activity, private var items: ArrayList<Cou
         viewHolder.txtName?.text = countries.name
         viewHolder.txtCupWin?.text = countries.cupWins
         viewHolder.flagImage?.setImageResource(countries.flagImage)
+        view?.setOnClickListener(){
+            Toast.makeText(activity,
+                "You chose: ${countries.name} which has ${countries.cupWins}",
+                Toast.LENGTH_SHORT).show()
+        }
         return view as View
     }
-    private class ViewHolder(row: View?){
+
+    private class ViewHolder(row: View?) {
         var txtName: TextView? = null
         var txtCupWin: TextView? = null
         var flagImage: ImageView? = null
